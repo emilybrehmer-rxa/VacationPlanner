@@ -2,8 +2,9 @@ var query;
 
 (async () => {
   let quarter = await setupDate();
+  let projectCode = 'billable'
   let select = ['goalhoursactual', 'qtrdayselapsed', 'harvesthoursbilled', 'goalhoursactuallegacy', 'qtrworkdays']
-  let where = [`harvestquarter= ${quarter}`]
+  let where = [`harvestquarter= ${quarter}`, `harvestprojectcode= ${projectCode}`]
   query = `/data/v1/harvest?fields=${select.join()}
                   &filter=${where.join()}
   `;
@@ -36,11 +37,6 @@ function calculateHours(days){
     var sumHarvestHoursBilled = sumValue(harvesthoursbilled);
     var maxQtrWorkDays = maxValue(qtrworkdays);
     var sumGoalHoursActualLegacy = sumValue(goalhoursactuallegacy);
-
-    console.log("maxQtrWorkDays: ", maxQtrWorkDays);
-    console.log("maxQtrDaysElapsed: ", maxQtrDaysElapsed);
-    console.log("sumGoalHoursActualLegacy: ", sumGoalHoursActualLegacy);
-    console.log("sumHarvestHoursBilled: ", sumHarvestHoursBilled);
 
     var adjDaysLeftInQtr = (maxQtrWorkDays - maxQtrDaysElapsed - days);
     document.getElementById("adj-days-left").innerHTML = adjDaysLeftInQtr.toFixed(0);  

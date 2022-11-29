@@ -4,7 +4,6 @@ var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 var yyyy = today.getFullYear();
 today = yyyy+'-'+ mm + '-' + dd;
-// today = mm+'-'+dd+'-'+yyyy
 
 async function setupDate(){
     var harvestQuarter = 1;
@@ -12,7 +11,6 @@ async function setupDate(){
     
     let promise = domo.post('/sql/v1/harvest', setupQuery, {contentType: 'text/plain'})
             .then(function(harvest){
-
                 return harvest.rows[0][1];       
                 });
         
